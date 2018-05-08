@@ -1,5 +1,5 @@
 /*!
- * vue-router-permissions v0.1.1 
+ * vue-router-permissions v0.1.2 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
@@ -13,15 +13,13 @@ var RouteProtect = function RouteProtect(router) {
     }
   });
 };
-
-var prototypeAccessors = { user: {} };
-prototypeAccessors.user.get = function () {
+RouteProtect.prototype.get = function get () {
   if (!this.vm.user) {
     throw new Error("Do not attempt to access user before it's set");
   }
   return this.vm.user;
 };
-prototypeAccessors.user.set = function (user) {
+RouteProtect.prototype.set = function set (user) {
     var this$1 = this;
 
   this.vm.user = user;
@@ -54,15 +52,13 @@ RouteProtect.prototype.resolve = function resolve (to, from, next) {
   }
 };
 
-Object.defineProperties( RouteProtect.prototype, prototypeAccessors );
-
 function plugin (Vue$$1, router) {
-  var protect = new RouteProtect(router);
-  Vue$$1.prototype.$protect = protect;
-  router.beforeEach(function (to, from, next) { return protect.resolve(to, from, next); });
+  var rp = new RouteProtect(router);
+  Vue$$1.prototype.$user = rp;
+  router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = '0.1.1';
+plugin.version = '0.1.2';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin);
