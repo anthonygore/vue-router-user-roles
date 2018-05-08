@@ -18,7 +18,7 @@ export class RouteProtect {
   set (user) {
     this.vm.user = user;
     if (this.to && this.to.meta.permissions) {
-      let matched = this.to.meta.permissions.find(item => item.type === this.vm.user.type);
+      let matched = this.to.meta.permissions.find(item => item.role === this.vm.user.role);
       if (matched) {
         if ((typeof matched.access === "boolean" && !matched.access) || matched.access(this.vm.user, this.to)) {
           this.router.push({ name: matched.redirect });
@@ -29,7 +29,7 @@ export class RouteProtect {
   resolve(to, from, next) {
     this.to = to;
     if (to.meta.permissions) {
-      let matched = to.meta.permissions.find(item => item.type === this.vm.user.type);
+      let matched = to.meta.permissions.find(item => item.role === this.vm.user.role);
       if (matched) {
         if (typeof matched.access === "boolean") {
           matched.access ? next() : next({ name: matched.redirect });

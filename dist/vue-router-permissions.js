@@ -1,5 +1,5 @@
 /*!
- * vue-router-permissions v0.1.2 
+ * vue-router-permissions v0.1.4 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
@@ -30,7 +30,7 @@ RouteProtect.prototype.set = function set (user) {
 
   this.vm.user = user;
   if (this.to && this.to.meta.permissions) {
-    var matched = this.to.meta.permissions.find(function (item) { return item.type === this$1.vm.user.type; });
+    var matched = this.to.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
     if (matched) {
       if ((typeof matched.access === "boolean" && !matched.access) || matched.access(this.vm.user, this.to)) {
         this.router.push({ name: matched.redirect });
@@ -43,7 +43,7 @@ RouteProtect.prototype.resolve = function resolve (to, from, next) {
 
   this.to = to;
   if (to.meta.permissions) {
-    var matched = to.meta.permissions.find(function (item) { return item.type === this$1.vm.user.type; });
+    var matched = to.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
     if (matched) {
       if (typeof matched.access === "boolean") {
         matched.access ? next() : next({ name: matched.redirect });
@@ -64,7 +64,7 @@ function plugin (Vue$$1, router) {
   router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = '0.1.2';
+plugin.version = '0.1.4';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin);

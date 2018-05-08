@@ -1,7 +1,7 @@
 {
   "name": "vue-router-permissions",
   "description": "A Vue.js plugin that protects routes depending on user permissions",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "author": {
     "name": "Anthony Gore",
     "email": "anthony@vuejsdevelopers.com"
