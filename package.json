@@ -53,6 +53,9 @@
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.1"
   },
+  "peerDependencies": {
+    "vue-router": "^2.0.0"
+  },
   "files": [
     "dist/vue-router-permissions.js",
     "dist/vue-router-permissions.min.js",
