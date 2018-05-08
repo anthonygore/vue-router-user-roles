@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-class RouteProtect {
+export class RouteProtect {
   constructor(router) {
     this.router = router;
     this.vm = new Vue({
