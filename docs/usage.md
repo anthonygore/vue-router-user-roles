@@ -78,7 +78,9 @@ A "user" is nothing more than an object with one required property: `role`. Rout
 
 You can add any other properties to this object, though, which may be used to determine the user's access. For example, you may give registered users an ID. They may only be able to visit routes that permit that ID e.g. */user/:id*
 
-Once the plugin is installed, you can access `user` from within your Vue instance or any component as `this.$protect.user`. You may like to set your user before an instance is created, though, in which case, access is provided through `Vue.prototype.$protect.user`.
+There are two self-explanatory API methods: `user.set(user)` and `user.get()`.
+
+Once the plugin is installed, you can access `user` from within your Vue instance or any component as `this.$user`. You may like to set your user before an instance is created, though, in which case, access is provided through `Vue.prototype.$user`.
 
 Here's an example of setting the user before the instance is created:
 
@@ -94,7 +96,7 @@ Vue.use(VueRouterPermissions, router);
 let getUser = Promise.resolve({ role: "guest" });
 
 getUser.then(user => {
-  Vue.prototype.$protect.user = user;
+  Vue.prototype.$user.set(user);
   new Vue({
     render: h => h(App),
     router
@@ -110,11 +112,11 @@ export default {
     logIn(username, password) {
       getUser("/api/user", { username, password })
         .then(user => {
-          this.$protect.user = user;
+          this.$user.set(Object.assign(user, { role: "registered" }));
         });
     },
     logOut() {
-      this.$protect.user = { role: "guest" };
+      this.$user.set({ role: "guest" });
     }
   }
 }
@@ -124,6 +126,6 @@ Note that `user` is reactive, so you can use it in templates etc
 
 ````vue
 <template>
-  <div v-if="$protect.user.role === 'guest'">...</div>
+  <div v-if="$user.get().role === 'guest'">...</div>
 </template>
 ````
