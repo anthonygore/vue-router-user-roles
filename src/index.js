@@ -1,9 +1,9 @@
 import { RouteProtect } from './RouteProtect';
 
 function plugin (Vue, router) {
-  let protect = new RouteProtect(router);
-  Vue.prototype.$protect = protect;
-  router.beforeEach((to, from, next) => protect.resolve(to, from, next));
+  let rp = new RouteProtect(router);
+  Vue.prototype.$user = rp;
+  router.beforeEach((to, from, next) => rp.resolve(to, from, next));
 }
 
 plugin.version = '__VERSION__'

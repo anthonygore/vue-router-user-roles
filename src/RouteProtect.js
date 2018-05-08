@@ -9,13 +9,13 @@ export class RouteProtect {
       }
     });
   }
-  get user() {
+  get () {
     if (!this.vm.user) {
       throw new Error("Do not attempt to access user before it's set");
     }
     return this.vm.user;
   }
-  set user(user) {
+  set (user) {
     this.vm.user = user;
     if (this.to && this.to.meta.permissions) {
       let matched = this.to.meta.permissions.find(item => item.type === this.vm.user.type);
