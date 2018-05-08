@@ -10,6 +10,8 @@ A Vue.js plugin that protects routes depending on user permissions
 
 ## :book: Usage
 
+Check out the demo [here](https://github.com/anthonygore/vue-router-permissions-demo).
+
 ### Installation
 
 Add it like any Vue plugin, however, you must pass in a router instance.
