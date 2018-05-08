@@ -9,7 +9,7 @@ A Vue.js plugin that protects routes depending on user permissions
 
 
 ## :book: Documentation
-See [here](http://anthonygore.github.io/vue-router-permissions/)
+See [here](/docs/usage.md)
 
 ## :scroll: Changelog
 Details changes for each release are documented in the [CHANGELOG.md](https://github.com/anthonygore/vue-router-permissions/blob/dev/CHANGELOG.md).
