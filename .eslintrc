@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:vue-libs/recommended"
+  ],
+  "rules": {
+    "object-curly-spacing": ["error", "always"],
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
+  }
+}

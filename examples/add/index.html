@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>add example</title>
+    <script src="../../node_modules/vue/dist/vue.js"></script>
+    <script src="../../dist/vue-router-permissions.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p>${ value }</p>
+    </div>
+    <script>
+      var vm = new Vue({
+        delimiters: ['${', '}'],
+        data: { value: 0 },
+        mounted: function () {
+          this.value = this.$add(1, 1)
+        }
+      }).$mount('#app')
+    </script>
+  </body>
+</html>
