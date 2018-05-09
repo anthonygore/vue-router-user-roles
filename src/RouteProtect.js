@@ -1,7 +1,7 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 export class RouteProtect {
-  constructor(router) {
+  constructor (router) {
     this.router = router;
     this.vm = new Vue({
       data: {
@@ -9,16 +9,16 @@ export class RouteProtect {
       }
     });
   }
-  get() {
+  get () {
     if (!this.vm.user) {
-      throw new Error("Do not attempt to access user before it's set");
+      throw new Error("Attempt to access user before being set");
     }
     return this.vm.user;
   }
-  set(user) {
+  set (user) {
     this.vm.user = user;
     if (this.to && this.to.meta.permissions) {
-      let matched = this.to.meta.permissions.find(item => item.role === this.vm.user.role);
+      const matched = this.to.meta.permissions.find(item => item.role === this.vm.user.role);
       if (matched) {
         if ((typeof matched.access === "boolean" && !matched.access) || matched.access(this.vm.user, this.to)) {
           this.router.push({ name: matched.redirect });
@@ -26,10 +26,10 @@ export class RouteProtect {
       }
     }
   }
-  resolve(to, from, next) {
+  resolve (to, from, next) {
     this.to = to;
     if (to.meta.permissions) {
-      let matched = to.meta.permissions.find(item => item.role === this.vm.user.role);
+      const matched = to.meta.permissions.find(item => item.role === this.vm.user.role);
       if (matched) {
         if (typeof matched.access === "boolean") {
           matched.access ? next() : next({ name: matched.redirect });

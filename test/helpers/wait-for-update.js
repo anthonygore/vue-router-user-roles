@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 // helper for jasmine async assertions.
 //
@@ -14,58 +14,58 @@ import Vue from 'vue'
 // })
 // .then(done)
 window.waitForUpdate = initialCb => {
-  const queue = initialCb ? [initialCb] : []
+  const queue = initialCb ? [initialCb] : [];
 
   function shift () {
-    const job = queue.shift()
+    const job = queue.shift();
     if (queue.length) {
-      let hasError = false
+      let hasError = false;
       try {
-        job.wait ? job(shift) : job()
+        job.wait ? job(shift) : job();
       } catch (e) {
-        hasError = true
-        const done = queue[queue.length - 1]
+        hasError = true;
+        const done = queue[queue.length - 1];
         if (done && done.fail) {
-          done.fail(e)
+          done.fail(e);
         }
       }
       if (!hasError && !job.wait) {
         if (queue.length) {
-          Vue.nextTick(shift)
+          Vue.nextTick(shift);
         }
       }
     } else if (job && job.fail) {
-      job() // done
+      job(); // done
     }
   }
 
   Vue.nextTick(() => {
     if (!queue.length || !queue[queue.length - 1].fail) {
-      console.warn('waitForUpdate chain is missing .then(done)')
+      console.warn("waitForUpdate chain is missing .then(done)");
     }
-    shift()
-  })
+    shift();
+  });
 
   const chainer = {
     then: nextCb => {
-      queue.push(nextCb)
-      return chainer
+      queue.push(nextCb);
+      return chainer;
     },
     thenWaitFor: (wait) => {
-      if (typeof wait === 'number') {
-        wait = timeout(wait)
+      if (typeof wait === "number") {
+        wait = timeout(wait);
       }
-      wait.wait = true
-      queue.push(wait)
-      return chainer
+      wait.wait = true;
+      queue.push(wait);
+      return chainer;
     }
-  }
+  };
 
-  return chainer
-}
+  return chainer;
+};
 
 function timeout (n) {
-  return next => setTimeout(next, n)
+  return next => setTimeout(next, n);
 }
 
 // helper for mocha async assertions.
@@ -76,49 +76,49 @@ function timeout (n) {
 // return a promise or value to skip the wait
 // })
 function nextTick (initialCb) {
-  const jobs = initialCb ? [initialCb] : []
-  let done
+  const jobs = initialCb ? [initialCb] : [];
+  let done;
 
   const chainer = {
     then (cb) {
-      jobs.push(cb)
-      return chainer
+      jobs.push(cb);
+      return chainer;
     }
-  }
+  };
 
   function shift (...args) {
-    const job = jobs.shift()
-    let result
+    const job = jobs.shift();
+    let result;
     try {
-      result = job(...args)
+      result = job(...args);
     } catch (e) {
-      jobs.length = 0
-      done(e)
+      jobs.length = 0;
+      done(e);
     }
 
     // wait for nextTick
     if (result !== undefined) {
       if (result.then) {
-        result.then(shift)
+        result.then(shift);
       } else {
-        shift(result)
+        shift(result);
       }
     } else if (jobs.length) {
-      requestAnimationFrame(() => Vue.nextTick(shift))
+      requestAnimationFrame(() => Vue.nextTick(shift));
     }
   }
 
   // First time
   Vue.nextTick(() => {
-    done = jobs[jobs.length - 1]
-    if (done.toString().slice(0, 14) !== 'function (err)') {
-      throw new Error('waitForUpdate chain is missing .then(done)')
+    done = jobs[jobs.length - 1];
+    if (done.toString().slice(0, 14) !== "function (err)") {
+      throw new Error("waitForUpdate chain is missing .then(done)");
     }
-    shift()
-  })
+    shift();
+  });
 
-  return chainer
+  return chainer;
 }
 
-window.nextTick = nextTick
-window.delay = time => new Promise(resolve => setTimeout(resolve, time))
+window.nextTick = nextTick;
+window.delay = time => new Promise(resolve => setTimeout(resolve, time));

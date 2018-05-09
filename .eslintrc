@@ -6,5 +6,29 @@
   "rules": {
     "object-curly-spacing": ["error", "always"],
     "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
+    "indent": [
+      "warn",
+      2
+    ],
+    "quotes": [
+      "warn",
+      "double"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-var": [
+      "error"
+    ],
+    "no-console": [
+      "off"
+    ],
+    "no-unused-vars": [
+      "off"
+    ],
+    "no-mixed-spaces-and-tabs": [
+      "warn"
+    ]
   }
 }

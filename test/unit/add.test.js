@@ -1,18 +1,18 @@
-import Vue from 'vue'
+import Vue from "vue";
 
-describe('$add', () => {
-  let vm
+describe("$add", () => {
+  let vm;
 
   beforeEach(() => {
-    vm = new Vue()
-  })
+    vm = new Vue();
+  });
 
-  describe('1 + 1', () => {
-    it('should be 2', done => {
+  describe("1 + 1", () => {
+    it("should be 2", done => {
       nextTick(() => {
-        assert(vm.$add(1, 1) === 2, 'You should be implemented!!')
-      }).then(done)
-    })
-  })
-})
+        assert(vm.$add(1, 1) === 2, "You should be implemented!!");
+      }).then(done);
+    });
+  });
+});
 

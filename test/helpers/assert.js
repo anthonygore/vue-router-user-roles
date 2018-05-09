@@ -1,3 +1,3 @@
-import assert from 'assert'
+import assert from "assert";
 
-window.assert = assert
+window.assert = assert;

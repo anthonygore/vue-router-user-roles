@@ -1,7 +1,7 @@
 {
   "name": "vue-router-user-roles",
   "description": "A Vue.js plugin that protects routes based on user roles",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": {
     "name": "Anthony Gore",
     "email": "anthony@vuejsdevelopers.com"
@@ -90,6 +90,7 @@
     "docs:build": "node config/version.js && gitbook build ./gitbook ./docs",
     "docs:install": "gitbook install ./gitbook",
     "lint": "eslint src test config",
+    "lint:fix": "eslint src test config --fix",
     "test": "npm run lint && npm run test:cover && npm run test:e2e",
     "test:cover": "cross-env BABEL_ENV=test karma start config/karma.cover.conf.js",
     "test:coveralls": "cross-env BABEL_ENV=test karma start config/karma.coveralls.conf.js",
