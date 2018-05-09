@@ -5,42 +5,48 @@
 [![npm](https://img.shields.io/npm/v/vue-router-permissions.svg)](https://www.npmjs.com/package/vue-router-permissions)
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-A Vue.js plugin that protects routes depending on user roles.
-
+A plugin for Vue.js SPAs that protects routes depending on user role.
 
 ## :book: Usage
 
-Check out the demo [here](https://github.com/anthonygore/vue-router-permissions-demo).
+Check out the demo [here](https://github.com/anthonygore/vue-router-user-roles-demo).
 
 ### Installation
 
-Add it like any Vue plugin, however, you must pass in a router instance.
-````js
+First create a Vue Router instance. It's best to do this in a dedicated file and export as a module e.g.
+
+```js
 // router.js
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
 export default new VueRouter(...);
+```
 
+Now you can add this plugin in your main file. You must pass in a router instance as an option `router`.
+
+```js
 // main.js
+
 import Vue from "vue";
 import router from "./router";
-import VueRouterPermissions from "vue-router-permissions";
+import VueRouterUserRoles from "vue-router-user-roles";
 
-Vue.use(VueRouterPermissions, router);
-````
+Vue.use(VueRouterUserRoles, { router });
+```
 
 ### Protecting routes
 
-To protect a route, add a `permissions` property to your route configuration under the `meta` property of the route.
+To protect a route, add a `permissions` property to each route configuration object under the `meta` property.
 
-Assign an array of objects to this, with each object defining the permissions for a different user role. We'll set user roles in the next section.
+Assign an array of objects to this, with each object defining the permissions for a different user role.
 
-The three properties required are: 
-- `role` - the user role in question
-- `access` - either a `boolean` or `function` returning a boolean that determines the access for the user. The function will have access to two objects: the `user` object and the route the user is attempting to access. 
+The three properties required for permissions objects are: 
+- `role` - the user role being configured for this route.
+- `access` - either a boolean, or function returning a boolean, that defines access for the user. A function will have access to two objects: the `user` object and the route being accessed. 
 - `redirect` - a route name you wish to redirect to if the user does not have access.
 
 ````js
@@ -84,29 +90,32 @@ let opts = {
 new VueRouter(opts);
 ````
 
-### Setting a user
+### User
 
-A "user" is nothing more than an object with one required property: `role`. Routes are protected based on the user's role. Typically this would be set to a string e.g. "guest", "admin" etc.
+A "user" is an object with one required property: `role`. Typically this would be set to a string e.g. "guest", "admin" etc.
 
-You can add any other properties to this object, though, which may be used to determine the user's access. For example, you may give registered users an ID. They may only be able to visit routes that permit that ID e.g. */user/:id*
+You can add other properties to this object. You may want to do that if route access is determined by a function, since the function is passed this object. For example, you may create an `id` property that could be compared to a route parameter e.g  */user/:id*
 
-Once the plugin is installed, you can access `user` from within your Vue instance or any component as `this.$user`. You may like to set your user before an instance is created, though, in which case, access is provided through `Vue.prototype.$user`.
+Once the plugin is installed, you can access `user` from within your Vue instance or any component as `this.$user`. 
 
-Here's an example of setting the user before the instance is created:
+
+#### Set the user
+
+You can set a user with the `set` method. Here's an example of setting the user before the first instance of Vue is created:
 
 ````js
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import VueRouterPermissions from "vue-router-permissions";
+import VueRouterUserRoles from "vue-router-user-roles";
 
-Vue.use(VueRouterPermissions, router);
+Vue.use(VueRouterUserRoles, router);
 
 // This would usually be an AJAX call to the server or a cookie check
 let getUser = Promise.resolve({ role: "guest" });
 
 getUser.then(user => {
-  Vue.prototype.$user = user;
+  Vue.prototype.$user.set(user);
   new Vue({
     render: h => h(App),
     router
@@ -114,7 +123,9 @@ getUser.then(user => {
 });
 ````
 
-You can then change the user whenever necessary. For example, a user may start as a guest, but once they're logged in, they have some other role. This will automatically reassess permissions and will potentially redirect the page is the user no longer has permissions to the current route.
+You'll probably set the user again during the lifecycle of the app. For example, a user may start as a guest, but once they're authenticated with AJAX, their role and permissions will change. 
+
+You can access `user` from within the app as `this.$user` e.g.
 
 ```js
 export default {
@@ -122,21 +133,23 @@ export default {
     logIn(username, password) {
       getUser("/api/user", { username, password })
         .then(user => {
-          this.$user = user;
+          this.$user.set(Object.assign(user, { role: "registered" }));
         });
     },
     logOut() {
-      this.$user = { role: "guest" };
+      this.$user.set({ role: "guest" });
     }
   }
 }
 ```
 
-Note that `user` is reactive, so you can use it in templates etc
+The `user` object is reactive, so each time you set the user, permissions will be reassessed and will potentially redirect the page if the user no longer has access to the current route.
+
+The other API method available is `get`:
 
 ````vue
 <template>
-  <div v-if="$user.role === 'guest'">...</div>
+  <div v-if="$user.get().role === 'guest'">...</div>
 </template>
 ````
 
