@@ -87,7 +87,8 @@ let opts = {
     }
   ]
 };
-new VueRouter(opts);
+
+const router = new VueRouter(opts);
 ````
 
 ### User
