@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/vue-router-permissions.svg)](https://www.npmjs.com/package/vue-router-permissions)
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-A Vue.js plugin that protects routes depending on user permissions
+A Vue.js plugin that protects routes depending on user roles.
 
 
 ## :book: Usage

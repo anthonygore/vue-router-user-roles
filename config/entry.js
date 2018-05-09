@@ -53,7 +53,11 @@ function genConfig (opts) {
     moduleName,
     plugins: [
       buble()
-    ]
+    ],
+    globals: {
+      vue: 'Vue'
+    },
+    external: ['vue']
   }
 
   const replacePluginOptions = { '__VERSION__': pack.version }

@@ -1,12 +1,12 @@
 /*!
- * vue-router-permissions v0.1.4 
+ * vue-router-user-roles v0.1.5 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('vue')) :
   typeof define === 'function' && define.amd ? define(['vue'], factory) :
-  (global.VueRouterPermissions = factory(global.Vue));
+  (global.VueRouterUserRoles = factory(global.Vue));
 }(this, (function (Vue) { 'use strict';
 
 Vue = 'default' in Vue ? Vue['default'] : Vue;
@@ -64,7 +64,7 @@ function plugin (Vue$$1, router) {
   router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = '0.1.4';
+plugin.version = '0.1.5';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin);

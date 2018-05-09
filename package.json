@@ -1,13 +1,13 @@
 {
-  "name": "vue-router-permissions",
-  "description": "A Vue.js plugin that protects routes depending on user permissions",
+  "name": "vue-router-user-roles",
+  "description": "A Vue.js plugin that protects routes based on user roles",
   "version": "0.1.5",
   "author": {
     "name": "Anthony Gore",
     "email": "anthony@vuejsdevelopers.com"
   },
   "bugs": {
-    "url": "https://github.com/anthonygore/vue-router-permissions/issues"
+    "url": "https://github.com/anthonygore/vue-router-user-roles/issues"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -58,15 +58,15 @@
     "vue-router": ">=2.0.0"
   },
   "files": [
-    "dist/vue-router-permissions.js",
-    "dist/vue-router-permissions.min.js",
-    "dist/vue-router-permissions.common.js",
+    "dist/vue-router-user-roles.js",
+    "dist/vue-router-user-roles.min.js",
+    "dist/vue-router-user-roles.common.js",
     "src"
   ],
-  "homepage": "https://github.com/anthonygore/vue-router-permissions#readme",
-  "main": "dist/vue-router-permissions.common.js",
-  "module": "dist/vue-router-permissions.esm.js",
-  "unpkg": "dist/vue-router-permissions.js",
+  "homepage": "https://github.com/anthonygore/vue-router-user-roles#readme",
+  "main": "dist/vue-router-user-roles.common.js",
+  "module": "dist/vue-router-user-roles.esm.js",
+  "unpkg": "dist/vue-router-user-roles.js",
   "keywords": [
     "plugin",
     "vue",
@@ -78,7 +78,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anthonygore/vue-router-permissions.git"
+    "url": "git+https://github.com/anthonygore/vue-router-user-roles.git"
   },
   "scripts": {
     "build": "node config/build.js",

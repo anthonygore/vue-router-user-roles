@@ -5,7 +5,7 @@ const pack = require('../package.json')
 const installation = fs
   .readFileSync('./gitbook/installation.md', 'utf-8')
   .replace(
-    /https:\/\/unpkg\.com\/vue-router-permissions@[\d.]+.[\d]+\/dist\/vue-router-permissions\.js/,
-    'https://unpkg.com/vue-router-permissions@' + pack.version + '/dist/vue-router-permissions.js.'
+    /https:\/\/unpkg\.com\/vue-router-user-roles@[\d.]+.[\d]+\/dist\/vue-router-user-roles\.js/,
+    'https://unpkg.com/vue-router-user-roles@' + pack.version + '/dist/vue-router-user-roles.js.'
   )
 fs.writeFileSync('./gitbook/installation.md', installation)
