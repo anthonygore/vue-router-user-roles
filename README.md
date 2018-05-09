@@ -1,4 +1,4 @@
-# vue-router-permissions
+# vue-router-user-roles
 
 [![Coverage Status](https://coveralls.io/repos/github/anthonygore/vue-router-permissions/badge.svg?branch=dev)](https://coveralls.io/github/anthonygore/vue-router-permissions?branch=dev)
 

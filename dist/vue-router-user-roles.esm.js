@@ -1,5 +1,5 @@
 /*!
- * vue-router-user-roles v0.1.5 
+ * vue-router-user-roles v0.1.6 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
@@ -52,13 +52,16 @@ RouteProtect.prototype.resolve = function resolve (to, from, next) {
   }
 };
 
-function plugin (Vue$$1, router) {
-  var rp = new RouteProtect(router);
+function plugin (Vue$$1, opts) {
+  if (!opts.router) {
+    throw new Error("You must supply a router instance in the options.")
+  }
+  var rp = new RouteProtect(opts.router);
   Vue$$1.prototype.$user = rp;
-  router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
+  opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = '0.1.5';
+plugin.version = '0.1.6';
 
 if (typeof window !== 'undefined' && window.Vue) {
   window.Vue.use(plugin);

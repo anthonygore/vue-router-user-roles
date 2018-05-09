@@ -1,9 +1,12 @@
 import { RouteProtect } from './RouteProtect';
 
-function plugin (Vue, router) {
-  const rp = new RouteProtect(router);
+function plugin (Vue, opts) {
+  if (!opts.router) {
+    throw new Error("You must supply a router instance in the options.")
+  }
+  const rp = new RouteProtect(opts.router);
   Vue.prototype.$user = rp;
-  router.beforeEach((to, from, next) => rp.resolve(to, from, next));
+  opts.router.beforeEach((to, from, next) => rp.resolve(to, from, next));
 }
 
 plugin.version = '__VERSION__'
