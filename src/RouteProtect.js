@@ -20,7 +20,7 @@ export class RouteProtect {
     if (this.to && this.to.meta.permissions) {
       const matched = this.to.meta.permissions.find(item => item.role === this.vm.user.role);
       if (matched) {
-        if ((typeof matched.access === "boolean" && !matched.access) || matched.access(this.vm.user, this.to)) {
+        if ((typeof matched.access === "boolean" && !matched.access) || !matched.access(this.vm.user, this.to)) {
           this.router.push({ name: matched.redirect });
         }
       }
