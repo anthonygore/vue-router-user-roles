@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/vue-router-user-roles
     docker:
-      - image: circleci/chakracore-8-browsers
+      - image: circleci/node:chakracore-8-browsers
     steps:
       - checkout
       - restore_cache:
