@@ -1,5 +1,6 @@
 # vue-router-user-roles
 
+![Build status](https://circleci.com/gh/anthonygore/vue-router-user-roles.svg?style=shield&circle-token=:circle-token)
 [![Coverage Status](https://coveralls.io/repos/github/anthonygore/vue-router-user-roles/badge.svg?branch=dev)](https://coveralls.io/github/anthonygore/vue-router-user-roles?branch=dev)
 
 [![npm](https://img.shields.io/npm/v/vue-router-user-roles.svg)](https://www.npmjs.com/package/vue-router-user-roles)
