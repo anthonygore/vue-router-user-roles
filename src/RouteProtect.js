@@ -30,7 +30,7 @@ export class RouteProtect {
       throw new Error(`Route ${name} is not defined in the current router`);
     }
 
-    return this._hasAccessToRoute(route);
+    return this._hasAccessToRoute(route).access;
   }
   _hasAccessToRoute (route) {
     if (this.vm.user && route.meta.permissions) {

@@ -29,7 +29,7 @@ describe("RouteProtect.hasAccess", () => {
       role: "Admin"
     });
 
-    expect(rp.hasAccess({ name: "protected" }).access).toEqual(true);
+    expect(rp.hasAccess({ name: "protected" })).toEqual(true);
   });
 
   test("throws error when route not defined", () => {
