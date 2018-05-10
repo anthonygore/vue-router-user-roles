@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/vue-router-user-roles
+    docker:
+      - image: circleci/chakracore-8-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: NPM install
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+       - run: mkdir ~/junit
+            - run:
+                name: Test
+                command: cross-env BABEL_ENV=test ./node_modules/.bin/jest --ci --testResultsProcessor="./node_modules/jest-junit-reporter"
+                environment:
+                  MOCHA_FILE: /home/circleci/junit/test-result.xml
+                when: always
+            - store_test_results:
+                path: ~/junit
+            - store_artifacts:
+                path: ~/junit
