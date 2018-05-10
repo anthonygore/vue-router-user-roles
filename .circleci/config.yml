@@ -21,7 +21,7 @@ jobs:
           command: ./node_modules/.bin/jest --ci --testResultsProcessor="./node_modules/jest-junit-reporter"
           environment:
             BABEL_ENV: test
-            TEST_REPORT_PATH: /home/circleci/junit/test-result.xml
+            TEST_REPORT_PATH: /home/circleci/junit
           when: always
       - store_test_results:
           path: ~/junit
