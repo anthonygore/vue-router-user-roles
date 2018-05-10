@@ -26,7 +26,7 @@ RouteProtect.prototype.set = function set (user) {
   if (this.to && this.to.meta.permissions) {
     var matched = this.to.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
     if (matched) {
-      if ((typeof matched.access === "boolean" && !matched.access) || matched.access(this.vm.user, this.to)) {
+      if ((typeof matched.access === "boolean" && !matched.access) || !matched.access(this.vm.user, this.to)) {
         this.router.push({ name: matched.redirect });
       }
     }
