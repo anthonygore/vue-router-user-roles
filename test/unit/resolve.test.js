@@ -26,14 +26,14 @@ describe("RouteProtect - resolve", () => {
     const mockNext = jest.fn();
 
     rp.resolve(targetRoute, {}, mockNext);
-    expect(mockNext).toHaveBeenCalled();
+    expect(mockNext).toHaveBeenCalledWith();
   });
 
   test("allows access if no permissions", () => {
     const mockNext = jest.fn();
 
     rp.resolve({ meta: {} }, {}, mockNext);
-    expect(mockNext).toHaveBeenCalled();
+    expect(mockNext).toHaveBeenCalledWith();
   });
 
   test("allows access if no role match", () => {
@@ -48,7 +48,7 @@ describe("RouteProtect - resolve", () => {
     const mockNext = jest.fn();
 
     rp.resolve(targetRoute, {}, mockNext);
-    expect(mockNext).toHaveBeenCalled();
+    expect(mockNext).toHaveBeenCalledWith();
   });
 
   test("redirects if access denied", () => {
