@@ -1,5 +1,5 @@
 /*!
- * vue-router-user-roles v0.1.6 
+ * vue-router-user-roles v0.1.8 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
@@ -9,7 +9,7 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 
 var Vue = _interopDefault(require('vue'));
 
-var RouteProtect = function RouteProtect(router) {
+var RouteProtect = function RouteProtect (router) {
   this.router = router;
   this.vm = new Vue({
     data: {
@@ -19,7 +19,7 @@ var RouteProtect = function RouteProtect(router) {
 };
 RouteProtect.prototype.get = function get () {
   if (!this.vm.user) {
-    throw new Error("Do not attempt to access user before it's set");
+    throw new Error("Attempt to access user before being set");
   }
   return this.vm.user;
 };
@@ -58,16 +58,16 @@ RouteProtect.prototype.resolve = function resolve (to, from, next) {
 
 function plugin (Vue$$1, opts) {
   if (!opts.router) {
-    throw new Error("You must supply a router instance in the options.")
+    throw new Error("You must supply a router instance in the options.");
   }
   var rp = new RouteProtect(opts.router);
   Vue$$1.prototype.$user = rp;
   opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = '0.1.6';
+plugin.version = "0.1.8";
 
-if (typeof window !== 'undefined' && window.Vue) {
+if (typeof window !== "undefined" && window.Vue) {
   window.Vue.use(plugin);
 }
 
