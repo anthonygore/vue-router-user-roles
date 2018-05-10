@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/v/vue-router-user-roles.svg)](https://www.npmjs.com/package/vue-router-user-roles)
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-A plugin for Vue.js SPAs that protects routes depending on user role.
+A plugin for Vue.js SPAs that protects routes depending on user role. Add your own authentication.
 
 ## :book: Usage
 
@@ -100,7 +100,6 @@ You can add other properties to this object. You may want to do that if route ac
 
 Once the plugin is installed, you can access `user` from within your Vue instance or any component as `this.$user`. 
 
-
 #### Set the user
 
 You can set a user with the `set` method. Here's an example of setting the user before the first instance of Vue is created:
@@ -114,9 +113,10 @@ import VueRouterUserRoles from "vue-router-user-roles";
 Vue.use(VueRouterUserRoles, router);
 
 // This would usually be an AJAX call to the server or a cookie check
-let getUser = Promise.resolve({ role: "guest" });
+// Let's assume the user hasn't logged in yet so they're a guest for now.
+let authenticate = Promise.resolve({ role: "guest" });
 
-getUser.then(user => {
+authenticate.then(user => {
   Vue.prototype.$user.set(user);
   new Vue({
     render: h => h(App),
@@ -125,7 +125,7 @@ getUser.then(user => {
 });
 ````
 
-You'll probably set the user again during the lifecycle of the app. For example, a user may start as a guest, but once they're authenticated with AJAX, their role and permissions will change. 
+You'll probably set the user again during the lifecycle of the app. For example, a user may start as a guest, but once they're authenticated their role and permissions will change. 
 
 You can access `user` from within the app as `this.$user` e.g.
 
@@ -133,7 +133,7 @@ You can access `user` from within the app as `this.$user` e.g.
 export default {
   methods: {
     logIn(username, password) {
-      getUser("/api/user", { username, password })
+      authenticate("/api/user", { username, password })
         .then(user => {
           this.$user.set(Object.assign(user, { role: "registered" }));
         });
