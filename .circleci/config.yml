@@ -18,9 +18,10 @@ jobs:
       - run: mkdir ~/junit
       - run:
           name: Test
-          command: cross-env BABEL_ENV=test ./node_modules/.bin/jest --ci --testResultsProcessor="./node_modules/jest-junit-reporter"
+          command: ./node_modules/.bin/jest --ci --testResultsProcessor="./node_modules/jest-junit-reporter"
           environment:
-            MOCHA_FILE: /home/circleci/junit/test-result.xml
+            BABEL_ENV: test
+            TEST_REPORT_PATH: /home/circleci/junit/test-result.xml
           when: always
       - store_test_results:
           path: ~/junit
