@@ -1,5 +1,5 @@
 /*!
- * vue-router-user-roles v0.1.8 
+ * vue-router-user-roles v0.1.9 
  * (c) 2018 Anthony Gore
  * Released under the MIT License.
  */
@@ -26,37 +26,49 @@ RouteProtect.prototype.get = function get () {
   return this.vm.user;
 };
 RouteProtect.prototype.set = function set (user) {
+  this.vm.user = user;
+  if (this.to) {
+    var ref = this._hasAccessToRoute(this.to);
+      var access = ref.access;
+      var redirect = ref.redirect;
+    if (!access) {
+      this.router.push({ name: redirect });
+    }
+  }
+};
+RouteProtect.prototype.hasAccess = function hasAccess (ref) {
+    var name = ref.name;
+
+  var route = this.router.options.routes.find(function (r) { return r.name === name; });
+  if (!route) {
+    throw new Error(("Route " + name + " is not defined in the current router"));
+  }
+
+  return this._hasAccessToRoute(route).access;
+};
+RouteProtect.prototype._hasAccessToRoute = function _hasAccessToRoute (route) {
     var this$1 = this;
 
-  this.vm.user = user;
-  if (this.to && this.to.meta.permissions) {
-    var matched = this.to.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
+  if (this.vm.user && route.meta.permissions) {
+    var matched = route.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
     if (matched) {
-      if ((typeof matched.access === "boolean" && !matched.access) || !matched.access(this.vm.user, this.to)) {
-        this.router.push({ name: matched.redirect });
+      if ((typeof matched.access === "boolean" && !matched.access) ||
+          (typeof matched.access === "function" && !matched.access(this.vm.user, route))) {
+        return { access: false, redirect: matched.redirect };
       }
     }
   }
+
+  return { access: true };
 };
 RouteProtect.prototype.resolve = function resolve (to, from, next) {
-    var this$1 = this;
-
   this.to = to;
-  if (to.meta.permissions) {
-    var matched = to.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
-    if (matched) {
-      if (typeof matched.access === "boolean") {
-        matched.access ? next() : next({ name: matched.redirect });
-      } else {
-        matched.access(this.vm.user, to) ? next() : next({ name: matched.redirect });
-      }
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-};
+
+  var ref = this._hasAccessToRoute(to);
+    var access = ref.access;
+    var redirect = ref.redirect;
+  access ? next() : next({ name: redirect });
+  };
 
 function plugin (Vue$$1, opts) {
   if (!opts.router) {
@@ -67,7 +79,7 @@ function plugin (Vue$$1, opts) {
   opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = "0.1.8";
+plugin.version = "0.1.9";
 
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.use(plugin);
