@@ -1,6 +1,6 @@
 /*!
- * vue-router-user-roles v0.1.9 
- * (c) 2018 Anthony Gore
+ * vue-router-user-roles v0.1.92 
+ * (c) 2019 Anthony Gore
  * Released under the MIT License.
  */
 'use strict';
@@ -77,7 +77,7 @@ function plugin (Vue$$1, opts) {
   opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
 }
 
-plugin.version = "0.1.9";
+plugin.version = "0.1.92";
 
 if (typeof window !== "undefined" && window.Vue) {
   window.Vue.use(plugin);

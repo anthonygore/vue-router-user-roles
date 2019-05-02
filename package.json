@@ -1,7 +1,7 @@
 {
   "name": "vue-router-user-roles",
   "description": "A Vue.js plugin that protects routes based on user roles",
-  "version": "0.1.91",
+  "version": "0.1.92",
   "author": {
     "name": "Anthony Gore",
     "email": "anthony@vuejsdevelopers.com"
@@ -10,14 +10,14 @@
     "url": "https://github.com/anthonygore/vue-router-user-roles/issues"
   },
   "devDependencies": {
-    "babel-core": "^6.22.1",
+    "@babel/preset-env": "^7.4.4",
+    "babel-core": "^7.0.0-0",
     "babel-eslint": "^7.1.0",
     "babel-jest": "^22.4.3",
     "babel-loader": "^6.2.10",
     "babel-plugin-istanbul": "^5.1.4",
     "babel-polyfill": "6.22.0",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-power-assert": "^1.0.0",
+    "babel-preset-power-assert": "^3.0.0",
     "buble": "^0.14.0",
     "chromedriver": "^2.27.2",
     "conventional-changelog-cli": "^1.2.0",
