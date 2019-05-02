@@ -1,7 +1,7 @@
 {
   "name": "vue-router-user-roles",
   "description": "A Vue.js plugin that protects routes based on user roles",
-  "version": "0.1.9",
+  "version": "0.1.91",
   "author": {
     "name": "Anthony Gore",
     "email": "anthony@vuejsdevelopers.com"
