@@ -15,7 +15,7 @@ Check out the demo [here](https://github.com/anthonygore/vue-router-user-roles-d
 ### Installation
 
 ```bash
-$ npm i vue-router-user-roles -D
+$ npm i vue-router-user-roles
 ```
 
 First create a Vue Router instance. It's best to do this in a dedicated file and export as a module e.g.
